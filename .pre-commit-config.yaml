@@ -1,0 +1,8 @@
+repos:
+  - repo: local
+    hooks:
+      - id: fmt
+        name: Format
+        language: system
+        entry: just fmt
+        pass_filenames: false

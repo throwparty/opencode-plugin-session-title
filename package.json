@@ -1,0 +1,35 @@
+{
+  "name": "@throwparty/opencode-plugin-session-title",
+  "version": "0.1.0",
+  "type": "module",
+  "module": "dist/main.ts",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "bun build src/main.ts --outfile dist/main.ts",
+    "dev": "env OPENCODE_CONFIG_DIR=\"$(pwd)/.opencode\" opencode --log-level=DEBUG --print-logs",
+    "watch": "bun run build --watch"
+  },
+  "homepage": "https://github.com/throwparty/opencode-plugin-session-title",
+  "bugs": {
+    "url": "https://github.com/throwparty/opencode-plugin-session-title/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/throwparty/opencode-plugin-session-title.git"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "files": [
+    "dist/",
+    "package.json",
+    "README.md",
+    "LICENSE.md"
+  ],
+  "dependencies": {
+    "@opencode-ai/plugin": "*"
+  }
+}
