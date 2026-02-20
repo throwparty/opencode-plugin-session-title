@@ -1,0 +1,15 @@
+[formatter.mdformat]
+command = "mdformat"
+includes = ["*.md"]
+
+[formatter.nixfmt]
+command = "nixfmt"
+includes = ["*.nix"]
+
+[formatter.prettier]
+command = "prettier"
+includes = ["*.json", "*.ts"]
+
+[formatter.toml-sort]
+command = "toml-sort"
+includes = ["*.toml"]

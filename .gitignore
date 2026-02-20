@@ -1,0 +1,10 @@
+# direnv
+/.direnv/
+/.envrc
+.gitignore
+
+# Bun
+/node_modules/
+
+# Built artifacts
+/dist/
