@@ -1,0 +1,16 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  release:
+    name: Build and release
+    permissions:
+      contents: read
+    uses: ./.github/workflows/plugin.build-and-release.yaml
