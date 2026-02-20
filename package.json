@@ -5,9 +5,9 @@
   "module": "dist/main.ts",
   "license": "Apache-2.0",
   "scripts": {
-    "build": "bun build src/main.ts --outfile dist/main.ts",
+    "build": "bun build src/main.ts --target=bun --outfile dist/main.ts",
     "dev": "env OPENCODE_CONFIG_DIR=\"$(pwd)/.opencode\" opencode --log-level=DEBUG --print-logs",
-    "watch": "bun run build --watch"
+    "watch": "bun build src/main.ts --target=bun --outfile dist/main.ts --watch"
   },
   "homepage": "https://github.com/throwparty/opencode-plugin-session-title",
   "bugs": {
@@ -30,6 +30,7 @@
     "LICENSE.md"
   ],
   "dependencies": {
-    "@opencode-ai/plugin": "*"
+    "@opencode-ai/plugin": "*",
+    "jsonc-parser": "^3.3.1"
   }
 }

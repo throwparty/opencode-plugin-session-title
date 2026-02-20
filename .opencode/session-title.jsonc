@@ -1,0 +1,4 @@
+{
+  "updateFreq": 1,
+  "prompt": "You are a summarisation bot. Generate a brief (max 50 character) title for this session. Omit low-signal language (e.g. for, the, with). Use only English.",
+}

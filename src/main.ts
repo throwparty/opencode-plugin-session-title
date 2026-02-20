@@ -1,35 +1,34 @@
-import { type Plugin, tool } from "@opencode-ai/plugin";
+import { type Plugin, type PluginInput, tool } from "@opencode-ai/plugin";
+import { setSessionTitle } from "./tools";
+import { PluginContext, type LogLevel } from "./types";
+import { sessionIdleHandler } from "./handlers";
+import { loadConfig } from "./config";
 
-// AppLogData.body.level doesn't appear to be exposed by the plugin SDK.
-type LogLevel = "debug" | "info" | "warn" | "error";
-
-export const SessionTitlePlugin: Plugin = async ({ client }) => {
+export const SessionTitlePlugin: Plugin = async (input: PluginInput) => {
   const service = "opencode-plugin-session-title";
+  const log = (level: LogLevel, message: string) => {
+    input.client.app.log({ body: { service, level, message } });
+  };
+  const config = loadConfig(input, log);
+  const ctx = new PluginContext(
+    service,
+    config,
+    input.client.app,
+    input.client.session,
+  );
+
   return {
+    event: async ({ event }) => {
+      if (event.type === "session.idle") {
+        sessionIdleHandler(event, ctx);
+      }
+    },
     tool: {
       setsessiontitle: tool({
         description: "Sets the session title",
         args: { title: tool.schema.string() },
-        async execute({ title }, { sessionID }) {
-          const result = await client.session.update({
-            path: { id: sessionID },
-            body: { title },
-          });
-
-          let level: LogLevel = "info";
-          let message = `Set the session title to ${result.data?.title}`;
-          if (result.error) {
-            level = "warn";
-            message = `Failed to set the session title: ${result.error}`;
-          }
-          client.app.log({
-            body: {
-              service,
-              level,
-              message,
-            },
-          });
-          return message;
+        execute({ title }, { sessionID }) {
+          return setSessionTitle(title, sessionID, ctx);
         },
       }),
     },
