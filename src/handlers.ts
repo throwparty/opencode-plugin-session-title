@@ -11,10 +11,6 @@ async function retitleSession(sessionId: string, ctx: PluginContext) {
   const promptResult = await ctx.sessionClient.prompt({
     path: { id: sessionId },
     body: {
-      tools: {
-        "*": false,
-        setsessiontitle: true,
-      },
       parts: [{ type: "text", text: ctx.config.prompt }],
     },
   });
